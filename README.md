@@ -1,4 +1,4 @@
-JackpotCoin (JACKPOT) 
+JackpotCoin (JACKPOT) NEW Wallet
 
 - PoW/PoS independent
 - 3 transaction confirmations - average less than 1 min confirmation
