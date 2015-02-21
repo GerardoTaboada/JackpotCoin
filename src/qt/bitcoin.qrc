@@ -44,6 +44,12 @@
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
         <file alias="debugwindow">res/icons/debugwindow.png</file>
+		<file alias="qtlogo">res/icons/qtlogo-64.png</file>
+		<file alias="irc">res/icons/irc.png</file>
+		<file alias="block">res/icons/block.png</file>
+		<file alias="reddit">res/icons/reddit.png</file>
+        <file alias="twitter">res/icons/TW.png</file>
+        <file alias="face">res/icons/face.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>

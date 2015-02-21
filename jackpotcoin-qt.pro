@@ -1,26 +1,33 @@
 TEMPLATE = app
 TARGET = jackpotcoin-qt
-VERSION = 0.7.2
+VERSION = 2.0.0
 INCLUDEPATH += src src/json src/qt
-DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN __NO_SYSTEM_INCLUDES
-QT += core gui network
+DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-CONFIG += no_include_pwd
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
+QMAKE_CXXFLAGS = -fpermissive
+QT += core gui network widgets
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+    DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
+}
 
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
 
 win32 {
-BOOST_LIB_SUFFIX=-mgw48-mt-s-1_53
-BOOST_INCLUDE_PATH=c:/deps/boost_1_53_0
-BOOST_LIB_PATH=c:/deps/boost_1_53_0/stage/lib
+BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
+BOOST_INCLUDE_PATH=c:/deps/boost_1_55_0
+BOOST_LIB_PATH=c:/deps/boost_1_55_0/stage/lib
 BDB_INCLUDE_PATH=c:/deps/db-4.8.30.NC/build_unix
 BDB_LIB_PATH=c:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=c:/deps/openssl-1.0.1g/include
-OPENSSL_LIB_PATH=c:/deps/openssl-1.0.1g
+OPENSSL_INCLUDE_PATH=c:/deps/openssl-1.0.1i/include
+OPENSSL_LIB_PATH=c:/deps/openssl-1.0.1i
 MINIUPNPC_INCLUDE_PATH=c:/deps/
 MINIUPNPC_LIB_PATH=c:/deps/miniupnpc
 }
@@ -197,6 +204,9 @@ HEADERS += src/qt/bitcoingui.h \
     src/sph_types.h \
     src/version.h \
     src/netbase.h \
+	src/qt/chatwindow.h \
+	src/qt/serveur.h \
+	src/qt/blockbrowser.h \
     src/clientversion.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
@@ -265,6 +275,9 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/qtipcserver.cpp \
     src/qt/rpcconsole.cpp \
     src/noui.cpp \
+	src/qt/chatwindow.cpp \
+	src/qt/blockbrowser.cpp \
+	src/qt/serveur.cpp \
     src/kernel.cpp
 
 RESOURCES += \
@@ -282,6 +295,8 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
+	src/qt/forms/blockbrowser.ui \
+	src/qt/forms/chatwindow.ui \
     src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {
@@ -326,7 +341,7 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_53
+    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_55
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
